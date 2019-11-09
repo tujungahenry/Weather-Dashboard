@@ -1,0 +1,23 @@
+  
+header {
+    color: white;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  input {
+    width: 150px;
+  }
+  
+  .five-card {
+    background: #003cffcf;
+    color: white;
+  }
+  
+  @media only screen and (max-width: 960px) {
+  
+    .card-deck {
+      flex-wrap: wrap;
+      flex-direction: column;
+    }
+  }
