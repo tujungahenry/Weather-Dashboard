@@ -1,7 +1,6 @@
-//*** Variables ***//
 let cities = [];
 
-//*** API Requests ***//
+//API Request
 
 $("#find-city").on("click", function(event) {
   event.preventDefault();
@@ -18,14 +17,13 @@ $("#city-list").on("click", ".city", function(event) {
 });
 
 $("#clear-city-names").on("click", function() {
-  // Clear the city names array
+  // Clear city name
   cities = [];
   saveCities();
   renderCities();
 })
 
 function getAPIs(city) {
-  // Variables
   const APIKey = "c0dc1a9d8fb231df2cf782d516966b2f";
   let fiveDayQueryURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city},us&units=imperial&appid=${APIKey}`;
   let mainQueryURL = `https://api.openweathermap.org/data/2.5/weather?q=${city},us&units=imperial&appid=${APIKey}`;
@@ -44,7 +42,7 @@ function getAPIs(city) {
     showMainWeather(response);
   })
 
-  // Add city name to array.
+  // Add city to array.
   if (cities.indexOf(city) === -1) {
     cities.push(city);
   }
@@ -53,23 +51,21 @@ function getAPIs(city) {
   renderCities();
 };
 
+//Local storage section
 function init() {
-  // Parsing the JSON stsring to an object
   let storedCities = JSON.parse(localStorage.getItem("cities"));
 
-  // If high scores were retrieved from localStorage, update highScores array to it.
   if (storedCities !== null) {
     cities = storedCities;
   }
 }
 
 function saveCities() {
-  // Save city names.
   localStorage.setItem("cities", JSON.stringify(cities));
 }
 
+//Display weather
 function showMainWeather(response) {
-  // Display main weather report
   let cityName = response.name;
   let cityDate = moment().format('l');
   let cityIcon = response.weather[0].icon;
@@ -85,10 +81,8 @@ function showMainWeather(response) {
   $("#city-condition").text(cityCondition);
 }
 
+//5 day forecast
 function showFiveDayWeather(response) {
-  // Display 5-day weather report
-
-  // Clear deck before updating
   $("#five-day-deck").empty();
   for (let i = 0; i < 40; i += 8) {
     let cardDate = response.list[i].dt_txt;
@@ -113,11 +107,9 @@ function showFiveDayWeather(response) {
   }
 }
 
+//Render cities
 function renderCities() {
-  // Clear city names element before updating.
   $("#city-list").empty();
-
-  // Render city names
   cities.forEach(city => {
 
     let cityCard = $("<div>").attr("class", "card");
